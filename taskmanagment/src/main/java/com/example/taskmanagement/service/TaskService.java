@@ -5,11 +5,12 @@ import com.example.taskmanagement.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
 
-    private TaskRepository repository;
+    private final TaskRepository repository;
 
     public TaskService(TaskRepository repository) {
         this.repository = repository;
@@ -19,7 +20,34 @@ public class TaskService {
         return repository.findAll();
     }
 
+    public Optional<Task> getTaskById(Long id) {
+        return repository.findById(id);
+    }
+
     public Task saveTask(Task task) {
+        return repository.save(task);
+    }
+
+    public void deleteTask(Long id) {
+        repository.deleteById(id);
+    }
+
+    public Task updateTask(Long id, Task updatedTask) {
+        Task task = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+
+        task.setTitle(updatedTask.getTitle());
+        task.setDescription(updatedTask.getDescription());
+        task.setCompleted(updatedTask.isCompleted());
+
+        return repository.save(task);
+    }
+
+    public Task toggleCompleted(Long id) {
+        Task task = repository.findById(id).orElseThrow(() -> new RuntimeException("Task not found"));
+
+        task.setCompleted(!task.isCompleted());
+
         return repository.save(task);
     }
 }
