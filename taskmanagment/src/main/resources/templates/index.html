@@ -18,12 +18,33 @@
 
         <form action="/tasks/create" method="post" class="task-form">
             <input type="text" name="title" placeholder="Task title" required>
+
             <input type="text" name="description" placeholder="Task description" required>
+
+            <select name="priority">
+                <option value="LOW">Low</option>
+                <option value="MEDIUM" selected>Medium</option>
+                <option value="HIGH">High</option>
+            </select>
+
+            <input type="date" name="dueDate">
+
             <button type="submit" class="btn btn-primary">Add Task</button>
         </form>
     </section>
 
     <section class="card">
+        <form action="/" method="get" class="task-form">
+            <input type="text"
+                   name="keyword"
+                   placeholder="Search by title"
+                   th:value="${keyword}">
+
+            <button type="submit" class="btn btn-primary">Search</button>
+
+            <a href="/" class="btn btn-edit">Clear</a>
+        </form>
+
         <h2>Your Tasks</h2>
 
         <table class="task-table">
@@ -32,6 +53,8 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Description</th>
+                <th>Priority</th>
+                <th>Due Date</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -44,6 +67,8 @@
                 <td th:text="${task.id}"></td>
                 <td th:text="${task.title}"></td>
                 <td th:text="${task.description}"></td>
+                <td th:text="${task.priority}"></td>
+                <td th:text="${task.dueDate}"></td>
 
                 <td>
                     <span th:text="${task.completed} ? 'Completed' : 'Pending'"

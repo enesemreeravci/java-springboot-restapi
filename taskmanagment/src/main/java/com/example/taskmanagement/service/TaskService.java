@@ -4,6 +4,7 @@ import com.example.taskmanagement.model.Task;
 import com.example.taskmanagement.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.login.CredentialException;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,8 @@ public class TaskService {
         task.setTitle(updatedTask.getTitle());
         task.setDescription(updatedTask.getDescription());
         task.setCompleted(updatedTask.isCompleted());
+        task.setPriority(updatedTask.getPriority());
+        task.setDueDate(updatedTask.getDueDate());
 
         return repository.save(task);
     }
@@ -49,5 +52,14 @@ public class TaskService {
         task.setCompleted(!task.isCompleted());
 
         return repository.save(task);
+    }
+
+    public List<Task> searchTasks(String keyword)
+    {
+        if(keyword == null || keyword.isBlank())
+        {
+            return repository.findAll();
+        }
+        return repository.findByTitleContainingIgnoreCase(keyword);
     }
 }

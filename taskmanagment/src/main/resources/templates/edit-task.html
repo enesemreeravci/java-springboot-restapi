@@ -32,6 +32,27 @@
                    placeholder="Task description"
                    required>
 
+            <select name="priority">
+                <option value="LOW"
+                        th:selected="${task.priority == 'LOW'}">
+                    Low
+                </option>
+
+                <option value="MEDIUM"
+                        th:selected="${task.priority == 'MEDIUM'}">
+                    Medium
+                </option>
+
+                <option value="HIGH"
+                        th:selected="${task.priority == 'HIGH'}">
+                    High
+                </option>
+            </select>
+
+            <input type="date"
+                   name="dueDate"
+                   th:value="${task.dueDate}">
+
             <div style="display:flex; align-items:center; gap:10px;">
                 <label>Completed</label>
 

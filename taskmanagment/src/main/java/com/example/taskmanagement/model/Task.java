@@ -3,6 +3,8 @@ package com.example.taskmanagement.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 public class Task {
     @Id
@@ -12,6 +14,8 @@ public class Task {
     private String title;
     private String description;
     private boolean completed;
+    private String priority;
+    private LocalDate dueDate;
 
     public Task()
     {}
@@ -21,6 +25,7 @@ public class Task {
         this.title = title;
         this.description = description;
         this.completed = false;
+        this.priority = "MEDIUM";
     }
 
     public Long getId()
@@ -55,5 +60,9 @@ public class Task {
     {
         this.completed = completed;
     }
+    public String getPriority(){return  priority;}
+    public void setPriority(String priority) { this.priority = priority;}
+    public LocalDate getDueDate(){return dueDate;}
+    public void setDueDate(LocalDate dueDate){this.dueDate = dueDate;}
 }
 

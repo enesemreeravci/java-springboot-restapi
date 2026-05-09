@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.example.taskmanagement.model.Task;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
@@ -21,9 +22,10 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public  String printIndex(Model model)
+    public String printIndex(@RequestParam(required = false) String keyword, Model model)
     {
-        model.addAttribute("tasks", service.getAllTasks());
+        model.addAttribute("tasks", service.searchTasks(keyword));
+        model.addAttribute("keyword", keyword);
         return "index";
     }
 
