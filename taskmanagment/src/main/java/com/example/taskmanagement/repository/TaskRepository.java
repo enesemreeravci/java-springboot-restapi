@@ -9,4 +9,6 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
     List<Task> findByTitleContainingIgnoreCase(String keyword);
+    List<Task> findByCompleted(boolean completed);
+    List<Task> findByPriority(String priority);
 }

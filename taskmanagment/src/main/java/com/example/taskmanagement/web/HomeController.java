@@ -10,6 +10,7 @@ import com.example.taskmanagement.model.Task;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -22,10 +23,23 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String printIndex(@RequestParam(required = false) String keyword, Model model)
-    {
-        model.addAttribute("tasks", service.searchTasks(keyword));
+    public String printIndex(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false, defaultValue = "all") String status,
+            Model model) {
+
+        List<Task> tasks;
+
+        if (keyword != null && !keyword.isBlank()) {
+            tasks = service.searchTasks(keyword);
+        } else {
+            tasks = service.filterTasks(status);
+        }
+
+        model.addAttribute("tasks", tasks);
         model.addAttribute("keyword", keyword);
+        model.addAttribute("status", status);
+
         return "index";
     }
 

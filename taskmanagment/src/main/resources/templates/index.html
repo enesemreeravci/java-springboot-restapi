@@ -34,6 +34,7 @@
     </section>
 
     <section class="card">
+
         <form action="/" method="get" class="task-form">
             <input type="text"
                    name="keyword"
@@ -44,6 +45,13 @@
 
             <a href="/" class="btn btn-edit">Clear</a>
         </form>
+
+        <div class="filter-buttons">
+            <a th:href="@{/(status='all')}" class="btn btn-edit">All</a>
+            <a th:href="@{/(status='completed')}" class="btn btn-toggle">Completed</a>
+            <a th:href="@{/(status='pending')}" class="btn btn-delete">Pending</a>
+            <a th:href="@{/(status='high')}" class="btn btn-primary">High Priority</a>
+        </div>
 
         <h2>Your Tasks</h2>
 

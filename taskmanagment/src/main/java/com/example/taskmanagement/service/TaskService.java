@@ -62,4 +62,26 @@ public class TaskService {
         }
         return repository.findByTitleContainingIgnoreCase(keyword);
     }
+
+    public  List<Task> filterTasks(String status)
+    {
+        if(status == null || status.equals("all"))
+        {
+            return repository.findAll();
+        }
+        if(status.equals("completed"))
+        {
+            return repository.findByCompleted(true);
+        }
+        if(status.equals("pending"))
+        {
+            return repository.findByCompleted(false);
+        }
+        if(status.equals("high"))
+        {
+            return repository.findByPriority("HIGH");
+        }
+        return repository.findAll();
+    }
+
 }

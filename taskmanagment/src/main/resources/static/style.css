@@ -168,3 +168,10 @@ body {
         text-align: center;
     }
 }
+
+.filter-buttons {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
